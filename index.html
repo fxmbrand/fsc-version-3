@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First Security and Trust | Quantum Banking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        :root {
+            --quantum-black: #000000;
+            --quantum-dark: #0a0a0f;
+            --quantum-gray: #1a1a24;
+            --neon-cyan: #00fff9;
+            --neon-pink: #ff00ff;
+            --neon-gold: #ffd700;
+            --matrix-green: #00ff41;
+        }
+        
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--quantum-black);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .quantum-bg {
+            background: radial-gradient(circle at 50% 50%, #1a1a24 0%, #000000 100%);
+        }
+        
+        .neon-border {
+            border: 1px solid rgba(0, 255, 249, 0.3);
+            box-shadow: 0 0 10px rgba(0, 255, 249, 0.2), inset 0 0 10px rgba(0, 255, 249, 0.1);
+        }
+        
+        .neon-border-pink {
+            border: 1px solid rgba(255, 0, 255, 0.3);
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.2), inset 0 0 10px rgba(255, 0, 255, 0.1);
+        }
+        
+        .neon-border-gold {
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.2), inset 0 0 10px rgba(255, 215, 0, 0.1);
+        }
+        
+        .neon-text {
+            text-shadow: 0 0 10px rgba(0, 255, 249, 0.5), 0 0 20px rgba(0, 255, 249, 0.3);
+        }
+        
+        .neon-text-pink {
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.5), 0 0 20px rgba(255, 0, 255, 0.3);
+        }
+        
+        .grid-cyber {
+            background-image: 
+                linear-gradient(rgba(0, 255, 249, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 249, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        .hologram {
+            background: linear-gradient(135deg, rgba(0,255,249,0.1) 0%, rgba(255,0,255,0.1) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 249, 0.2);
+        }
+        
+        .btn-cyber {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+        }
+        
+        .btn-cyber::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn-cyber:hover::before {
+            left: 100%;
+        }
+        
+        .glitch {
+            position: relative;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch::before {
+            left: 2px;
+            text-shadow: -1px 0 #ff00ff;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+        
+        .glitch::after {
+            left: -2px;
+            text-shadow: -1px 0 #00fff9;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-anim {
+            0% { clip: rect(31px, 9999px, 94px, 0); }
+            20% { clip: rect(6px, 9999px, 19px, 0); }
+            40% { clip: rect(78px, 9999px, 95px, 0); }
+            60% { clip: rect(15px, 9999px, 83px, 0); }
+            80% { clip: rect(63px, 9999px, 73px, 0); }
+            100% { clip: rect(26px, 9999px, 99px, 0); }
+        }
+        
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 99px, 0); }
+            20% { clip: rect(8px, 9999px, 46px, 0); }
+            40% { clip: rect(78px, 9999px, 93px, 0); }
+            60% { clip: rect(12px, 9999px, 63px, 0); }
+            80% { clip: rect(54px, 9999px, 96px, 0); }
+            100% { clip: rect(32px, 9999px, 79px, 0); }
+        }
+        
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(0, 255, 249, 0.5);
+            box-shadow: 0 0 10px rgba(0, 255, 249, 0.8);
+            animation: scan 3s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes scan {
+            0% { top: 0%; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+        
+        .hexagon {
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+        
+        .data-stream {
+            background: linear-gradient(180deg, transparent 0%, rgba(0,255,249,0.1) 50%, transparent 100%);
+            animation: stream 2s linear infinite;
+        }
+        
+        @keyframes stream {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        
+        .loading-bar {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .loading-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 30%;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+            animation: loading 2s infinite;
+        }
+        
+        @keyframes loading {
+            0% { left: -30%; }
+            100% { left: 100%; }
+        }
+        
+        .terminal {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 20, 0, 0.9);
+            border: 1px solid var(--matrix-green);
+            color: var(--matrix-green);
+        }
+        
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        
+        .reveal-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="quantum-bg grid-cyber">
+
+    <!-- Canvas Background -->
+    <canvas id="quantumCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 border-b border-cyan-500/20 bg-black/80 backdrop-blur-md">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="relative w-12 h-12">
+                        <div class="absolute inset-0 bg-cyan-500/20 hexagon animate-pulse"></div>
+                        <div class="absolute inset-1 bg-black hexagon flex items-center justify-center">
+                            <span class="font-orbitron font-bold text-cyan-400 text-lg">FSC</span>
+                        </div>
+                    </div>
+                    <div class="hidden sm:block">
+                        <div class="font-orbitron font-bold text-lg tracking-wider text-white group-hover:text-cyan-400 transition-colors">FIRST SECURITY</div>
+                        <div class="text-xs text-cyan-500/70 tracking-[0.3em]">QUANTUM TRUST</div>
+                    </div>
+                </a>
+
+                <div class="hidden lg:flex items-center gap-8">
+                    <a href="#global" class="text-sm text-gray-400 hover:text-cyan-400 transition-colors font-orbitron tracking-wider">[GLOBAL]</a>
+                    <a href="#about" class="text-sm text-gray-400 hover:text-cyan-400 transition-colors font-orbitron tracking-wider">[ABOUT]</a>
+                    <a href="#firm" class="text-sm text-gray-400 hover:text-cyan-400 transition-colors font-orbitron tracking-wider">[FIRM]</a>
+                    <a href="#businesses" class="text-sm text-gray-400 hover:text-cyan-400 transition-colors font-orbitron tracking-wider">[BUSINESSES]</a>
+                    <a href="#insights" class="text-sm text-gray-400 hover:text-cyan-400 transition-colors font-orbitron tracking-wider">[INSIGHTS]</a>
+                    <a href="#careers" class="text-sm text-gray-400 hover:text-cyan-400 transition-colors font-orbitron tracking-wider">[CAREERS]</a>
+                    <a href="#investors" class="text-sm text-gray-400 hover:text-cyan-400 transition-colors font-orbitron tracking-wider">[INVESTORS]</a>
+                    <a href="#newsroom" class="text-sm text-gray-400 hover:text-cyan-400 transition-colors font-orbitron tracking-wider">[NEWSROOM]</a>
+                    <a href="#contact" class="text-sm text-gray-400 hover:text-cyan-400 transition-colors font-orbit
